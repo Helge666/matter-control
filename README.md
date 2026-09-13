@@ -3,6 +3,12 @@
 A Matter controller for Windows. It pairs Matter devices into a fabric of its own and controls them
 from the PC — no manufacturer cloud, no hub.
 
+**[Download the installer](https://github.com/Helge666/matter-control/releases/latest)** for Windows 10 and 11.
+
+<p align="center">
+  <img src="docs/screenshot.png" alt="Matter Control with two lamps, one of them showing the mood editor" width="520">
+</p>
+
 ## What it does
 
 - **Pair** with an 11-digit code or a QR payload, also as a second admin alongside a manufacturer's
