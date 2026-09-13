@@ -1,0 +1,128 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------- design tokens */
+
+@theme {
+    --font-sans:
+        "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", sans-serif;
+    --font-display: "Segoe UI Variable Display", "Segoe UI", system-ui, sans-serif;
+    --font-mono: "Cascadia Code", "Cascadia Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+    /* Neutral ramp, tuned to sit on a Mica backdrop rather than pure black. */
+    --color-ink-50: #f4f6fa;
+    --color-ink-100: #e3e8f0;
+    --color-ink-200: #c3ccda;
+    --color-ink-300: #98a4b6;
+    --color-ink-400: #6f7d92;
+    --color-ink-500: #4e5b6e;
+    --color-ink-600: #394556;
+    --color-ink-700: #283240;
+    --color-ink-800: #1a222d;
+    --color-ink-900: #11171f;
+    --color-ink-950: #0b0e13;
+
+    /* Primary accent: cool indigo for chrome and focus. */
+    --color-accent-300: #9db4ff;
+    --color-accent-400: #7a96ff;
+    --color-accent-500: #5b77f5;
+    --color-accent-600: #4459d6;
+
+    /* Warm accent: reserved for "light is on". */
+    --color-glow-300: #ffd79a;
+    --color-glow-400: #ffc266;
+    --color-glow-500: #f5a524;
+
+    --color-ok: #3fbf7f;
+    --color-warn: #e8a33d;
+    --color-bad: #ef5f6b;
+
+    --radius-card: 0.875rem;
+    --shadow-lift: 0 1px 2px rgb(0 0 0 / 0.3), 0 8px 24px -12px rgb(0 0 0 / 0.5);
+}
+
+/* ------------------------------------------------------------------- base */
+
+@layer base {
+    :root {
+        color-scheme: dark;
+        /* Surfaces are translucent so the Win11 Mica backdrop shows through.
+           On systems without Mica the opaque window background shows instead. */
+        --surface-1: rgb(255 255 255 / 0.034);
+        --surface-2: rgb(255 255 255 / 0.055);
+        --surface-3: rgb(255 255 255 / 0.08);
+        --hairline: rgb(255 255 255 / 0.07);
+        --hairline-strong: rgb(255 255 255 / 0.13);
+    }
+
+    html,
+    body,
+    #app {
+        height: 100%;
+    }
+
+    body {
+        margin: 0;
+        font-family: var(--font-sans);
+        font-size: 13.5px;
+        color: var(--color-ink-100);
+        background: transparent;
+        overflow: hidden;
+        -webkit-font-smoothing: antialiased;
+    }
+
+    /* Standalone browser preview has no Mica behind it, so paint a comparable ground. */
+    body.no-mica {
+        background:
+            radial-gradient(1200px 700px at 18% -12%, #1b2436 0%, transparent 62%),
+            radial-gradient(900px 600px at 88% 108%, #1a2030 0%, transparent 58%),
+            var(--color-ink-950);
+    }
+
+    ::selection {
+        background: var(--color-accent-500);
+        color: white;
+    }
+
+    *:focus-visible {
+        outline: 2px solid var(--color-accent-400);
+        outline-offset: 2px;
+        border-radius: 4px;
+    }
+}
+
+/* ----------------------------------------------------------------- utilities */
+
+@utility surface {
+    background: var(--surface-1);
+    border: 1px solid var(--hairline);
+}
+
+@utility drag-region {
+    -webkit-app-region: drag;
+}
+
+@utility no-drag {
+    -webkit-app-region: no-drag;
+}
+
+/* Thin, unobtrusive scrollbars that match the chrome. */
+@layer base {
+    * {
+        scrollbar-width: thin;
+        scrollbar-color: var(--color-ink-600) transparent;
+    }
+    *::-webkit-scrollbar {
+        width: 10px;
+        height: 10px;
+    }
+    *::-webkit-scrollbar-thumb {
+        background: var(--color-ink-700);
+        border: 3px solid transparent;
+        background-clip: content-box;
+        border-radius: 999px;
+    }
+    *::-webkit-scrollbar-thumb:hover {
+        background: var(--color-ink-600);
+        background-clip: content-box;
+    }
+}

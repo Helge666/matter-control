@@ -1,0 +1,69 @@
+[2m2026-09-12 04:05:41.620 WARN   [0;1;90mBasicInfor~ionServer [0;33mUsing development values for some BasicInformation attributes: [34mvendorId: [2;39m65521 [0;34mvendorName: [2;39mMatter.js Test Vendor [0;34mproductId: [2;39m32768 [0;34mproductName: [2;39mMatter.js Test Product [0;34mhardwareVersion: [2;39m0 [0;34msoftwareVersion: [2;39m0[0m
+Watching peer1, peer3 — drive the device from the vendor app now.
+Baseline captured for 206 attributes. Ctrl+C to stop.
+
+
+[04:05:42] peer1 ep1 cluster$125dfc01.attr$2
+    before: 51839234
+    after : 105382146
+
+[04:05:42] peer1 ep1 cluster$125dfc01.attr$33
+    before: 0117035e5e6000006400382f001e5c00d545011a64
+    after : bytes(15) 014806323200000064014e41001f49
+    length 21 -> 15 bytes
+
+[04:05:42] peer3 ep1 cluster$125dfc01.attr$2
+    before: 100663554
+    after : 258
+
+[04:05:42] peer3 ep1 cluster$125dfc01.attr$33
+    before: 01000664648000006400ef6400df5400cc5500b601
+    after : bytes(15) 011c0a5a5ae0000052009d64008e64
+    length 21 -> 15 bytes
+
+[04:05:42] peer3 ep1 cluster$125dfc01.attr$2
+    before: 258
+    after : 139067650
+
+[04:05:42] peer3 ep1 cluster$125dfc01.attr$33
+    before: 011c0a5a5ae0000052009d64008e64
+    after : bytes(21) 014a0832320000006400f75000294f010d3800a327
+    length 15 -> 21 bytes
+
+[04:11:50] peer3 ep1 cluster$125dfc01.attr$2
+    before: 139067650
+    after : 171376898
+
+[04:11:50] peer3 ep1 cluster$125dfc01.attr$33
+    before: 014a0832320000006400f75000294f010d3800a327
+    after : bytes(24) 01370a5a5a6000006400335800186401004500e35e00ac30
+    length 21 -> 24 bytes
+
+[04:12:07] peer1 ep1 cluster$125dfc01.attr$2
+    before: 105382146
+    after : 122224898
+
+[04:12:07] peer1 ep1 cluster$125dfc01.attr$33
+    before: 014806323200000064014e41001f49
+    after : bytes(18) 0149070e0e0000006400da37015241005c37
+    length 15 -> 18 bytes
+
+[04:14:30] peer1 ep1 cluster$125dfc01.attr$2
+    before: 122224898
+    after : 33554690
+
+[04:14:30] peer1 ep1 cluster$125dfc01.attr$33
+    before: 0149070e0e0000006400da37015241005c37
+    after : bytes(18) 010002323200000064002864001864000064
+    changed at [1, 2, 3, 4, 10, 11, 12, 13, 14, 16, 17]: #1 49->00  #2 07->02  #3 0e->32  #4 0e->32  #10 da->28  #11 37->64  #12 01->00  #13 52->18  #14 41->64  #16 5c->00  #17 37->64
+
+[04:15:07] peer3 ep1 cluster$125dfc01.attr$2
+    before: 171376898
+    after : 2
+
+[04:15:07] peer3 ep1 cluster$125dfc01.attr$33
+    before: 01370a5a5a6000006400335800186401004500e35e00ac30
+    after : bytes(18) 0101020e0e00000064002864001864000064
+    length 24 -> 18 bytes
+
+[exited with code 1]

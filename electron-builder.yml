@@ -1,0 +1,33 @@
+appId: de.kautz.matter-control
+productName: Matter Control
+directories:
+  buildResources: build
+  output: release
+
+files:
+  - out/**
+  - build/*.png
+  - package.json
+  - "!**/*.map"
+  - "!node_modules/**/{test,__tests__,tests,example,examples,docs}/**"
+  - "!node_modules/**/*.{md,ts.map,tsbuildinfo}"
+
+# matter.js resolves platform modules at runtime, so it must stay a real dependency
+# rather than being bundled into out/main.
+npmRebuild: false
+asar: true
+
+win:
+  icon: build/icon.png
+  target:
+    - target: nsis
+      arch: [x64]
+    - target: zip
+      arch: [x64]
+  artifactName: ${productName}-${version}-${arch}.${ext}
+
+nsis:
+  oneClick: false
+  perMachine: false
+  allowToChangeInstallationDirectory: true
+  deleteAppDataOnUninstall: false

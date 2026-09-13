@@ -1,0 +1,8 @@
+node_modules/
+out/
+release/
+.matter-data/
+*.log
+*.tsbuildinfo
+# Local Claude Code configuration
+.claude/

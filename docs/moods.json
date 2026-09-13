@@ -1,0 +1,561 @@
+{
+  "version": 1,
+  "moods": [
+    {
+      "id": "travel-tubes-down",
+      "name": "Travel Tubes Down",
+      "mood": {
+        "mode": 9,
+        "speed": 0,
+        "brightness": 100,
+        "segmented": true,
+        "topDown": true,
+        "colors": [
+          {
+            "hue": 0,
+            "value": 1
+          },
+          {
+            "hue": 230,
+            "value": 100
+          }
+        ]
+      },
+      "factory": true
+    },
+    {
+      "id": "travel-tubes-up",
+      "name": "Travel Tubes Up",
+      "mood": {
+        "mode": 9,
+        "speed": 0,
+        "brightness": 100,
+        "segmented": true,
+        "topDown": false,
+        "colors": [
+          {
+            "hue": 0,
+            "value": 1
+          },
+          {
+            "hue": 230,
+            "value": 100
+          }
+        ]
+      },
+      "factory": true
+    },
+    {
+      "id": "luke-vs-vader",
+      "name": "Luke vs. Vader",
+      "mood": {
+        "mode": 15,
+        "speed": 29,
+        "brightness": 100,
+        "segmented": false,
+        "topDown": false,
+        "colors": [
+          {
+            "hue": 0,
+            "value": 1
+          },
+          {
+            "hue": 117,
+            "value": 100
+          },
+          {
+            "hue": 117,
+            "value": 100
+          },
+          {
+            "hue": 117,
+            "value": 100
+          },
+          {
+            "hue": 0,
+            "value": 100
+          },
+          {
+            "hue": 0,
+            "value": 100
+          },
+          {
+            "hue": 0,
+            "value": 100
+          }
+        ]
+      },
+      "factory": true
+    },
+    {
+      "id": "tetris",
+      "name": "Tetris",
+      "mood": {
+        "mode": 6,
+        "speed": 5,
+        "brightness": 100,
+        "segmented": true,
+        "topDown": true,
+        "colors": [
+          {
+            "hue": 0,
+            "value": 100
+          },
+          {
+            "hue": 105,
+            "value": 100
+          },
+          {
+            "hue": 220,
+            "value": 100
+          },
+          {
+            "hue": 0,
+            "value": 1
+          },
+          {
+            "hue": 35,
+            "value": 100
+          },
+          {
+            "hue": 60,
+            "value": 100
+          },
+          {
+            "hue": 315,
+            "value": 100
+          }
+        ]
+      },
+      "factory": true
+    },
+    {
+      "id": "red-alert",
+      "name": "Red Alert",
+      "mood": {
+        "mode": 4,
+        "speed": 80,
+        "brightness": 100,
+        "segmented": false,
+        "topDown": true,
+        "colors": [
+          {
+            "hue": 0,
+            "value": 100
+          }
+        ]
+      },
+      "factory": true
+    },
+    {
+      "id": "slawa-ukrajini",
+      "name": "Slawa Ukrajini",
+      "mood": {
+        "mode": 8,
+        "speed": 50,
+        "brightness": 100,
+        "segmented": false,
+        "topDown": false,
+        "colors": [
+          {
+            "hue": 240,
+            "value": 100
+          },
+          {
+            "hue": 60,
+            "value": 100
+          }
+        ]
+      },
+      "factory": true
+    },
+    {
+      "id": "lab-light-on",
+      "name": "Lab Light On",
+      "mood": {
+        "mode": 12,
+        "speed": 10,
+        "brightness": 100,
+        "segmented": false,
+        "topDown": false,
+        "colors": [
+          {
+            "hue": 0,
+            "value": 1
+          }
+        ]
+      },
+      "factory": true
+    },
+    {
+      "id": "protomolecule",
+      "name": "Protomolecule",
+      "mood": {
+        "mode": 3,
+        "speed": 55,
+        "brightness": 100,
+        "segmented": false,
+        "topDown": false,
+        "colors": [
+          {
+            "hue": 240,
+            "value": 100
+          }
+        ]
+      },
+      "factory": true
+    },
+    {
+      "id": "eye-of-aldhani",
+      "name": "Eye of Aldhani",
+      "mood": {
+        "mode": 5,
+        "speed": 5,
+        "brightness": 100,
+        "segmented": false,
+        "topDown": false,
+        "colors": [
+          {
+            "hue": 99,
+            "value": 100
+          },
+          {
+            "hue": 209,
+            "value": 100
+          },
+          {
+            "hue": 277,
+            "value": 100
+          },
+          {
+            "hue": 203,
+            "value": 43
+          },
+          {
+            "hue": 327,
+            "value": 77
+          },
+          {
+            "hue": 229,
+            "value": 100
+          },
+          {
+            "hue": 0,
+            "value": 1
+          },
+          {
+            "hue": 60,
+            "value": 63
+          }
+        ]
+      },
+      "factory": true
+    },
+    {
+      "id": "synthwave",
+      "name": "Synthwave",
+      "mood": {
+        "mode": 4,
+        "speed": 90,
+        "brightness": 100,
+        "segmented": false,
+        "topDown": false,
+        "colors": [
+          {
+            "hue": 130,
+            "value": 100
+          },
+          {
+            "hue": 290,
+            "value": 100
+          },
+          {
+            "hue": 240,
+            "value": 100
+          }
+        ]
+      },
+      "factory": true
+    },
+    {
+      "id": "epilepsy",
+      "name": "Epilepsy",
+      "mood": {
+        "mode": 15,
+        "speed": 100,
+        "brightness": 100,
+        "segmented": false,
+        "topDown": false,
+        "colors": [
+          {
+            "hue": 130,
+            "value": 100
+          },
+          {
+            "hue": 290,
+            "value": 100
+          },
+          {
+            "hue": 240,
+            "value": 100
+          },
+          {
+            "hue": 200,
+            "value": 100
+          },
+          {
+            "hue": 360,
+            "value": 100
+          },
+          {
+            "hue": 60,
+            "value": 100
+          },
+          {
+            "hue": 360,
+            "value": 1
+          },
+          {
+            "hue": 30,
+            "value": 100
+          }
+        ]
+      },
+      "factory": true
+    },
+    {
+      "id": "wine-gums-up",
+      "name": "Wine Gums Up",
+      "mood": {
+        "mode": 10,
+        "speed": 50,
+        "brightness": 100,
+        "segmented": false,
+        "topDown": false,
+        "colors": [
+          {
+            "hue": 130,
+            "value": 100
+          },
+          {
+            "hue": 240,
+            "value": 100
+          },
+          {
+            "hue": 360,
+            "value": 100
+          },
+          {
+            "hue": 60,
+            "value": 100
+          },
+          {
+            "hue": 360,
+            "value": 1
+          },
+          {
+            "hue": 30,
+            "value": 100
+          }
+        ]
+      },
+      "factory": true
+    },
+    {
+      "id": "wine-gums-down",
+      "name": "Wine Gums Down",
+      "mood": {
+        "mode": 10,
+        "speed": 50,
+        "brightness": 100,
+        "segmented": false,
+        "topDown": true,
+        "colors": [
+          {
+            "hue": 130,
+            "value": 100
+          },
+          {
+            "hue": 240,
+            "value": 100
+          },
+          {
+            "hue": 360,
+            "value": 100
+          },
+          {
+            "hue": 60,
+            "value": 100
+          },
+          {
+            "hue": 360,
+            "value": 1
+          },
+          {
+            "hue": 30,
+            "value": 100
+          }
+        ]
+      },
+      "factory": true
+    },
+    {
+      "id": "space-lift",
+      "name": "Space Lift",
+      "mood": {
+        "mode": 11,
+        "speed": 10,
+        "brightness": 100,
+        "segmented": false,
+        "topDown": false,
+        "colors": [
+          {
+            "hue": 240,
+            "value": 100
+          },
+          {
+            "hue": 200,
+            "value": 100
+          }
+        ]
+      },
+      "factory": true
+    },
+    {
+      "id": "red-team-blue-team",
+      "name": "Red Team, Blue Team",
+      "mood": {
+        "mode": 14,
+        "speed": 50,
+        "brightness": 100,
+        "segmented": false,
+        "topDown": false,
+        "colors": [
+          {
+            "hue": 0,
+            "value": 100
+          },
+          {
+            "hue": 240,
+            "value": 100
+          }
+        ]
+      },
+      "factory": true
+    },
+    {
+      "id": "cylon-knight-rider",
+      "name": "Cylon Knight Rider",
+      "mood": {
+        "mode": 13,
+        "speed": 10,
+        "brightness": 100,
+        "segmented": false,
+        "topDown": false,
+        "colors": [
+          {
+            "hue": 0,
+            "value": 100
+          }
+        ]
+      },
+      "factory": true
+    },
+    {
+      "id": "but-can-it-rgb",
+      "name": "But Can it RGB?",
+      "mood": {
+        "mode": 2,
+        "speed": 80,
+        "brightness": 100,
+        "segmented": false,
+        "topDown": false,
+        "colors": [
+          {
+            "hue": 360,
+            "value": 100
+          },
+          {
+            "hue": 108,
+            "value": 100
+          },
+          {
+            "hue": 240,
+            "value": 100
+          }
+        ]
+      },
+      "factory": true
+    },
+    {
+      "id": "white-wedding",
+      "name": "White Wedding",
+      "mood": {
+        "mode": 1,
+        "speed": 70,
+        "brightness": 100,
+        "segmented": false,
+        "topDown": false,
+        "colors": [
+          {
+            "hue": 360,
+            "value": 1
+          },
+          {
+            "hue": 360,
+            "value": 10
+          }
+        ]
+      },
+      "factory": true
+    },
+    {
+      "id": "mint-condition",
+      "name": "Mint Condition",
+      "mood": {
+        "mode": 10,
+        "speed": 10,
+        "brightness": 100,
+        "segmented": false,
+        "topDown": false,
+        "colors": [
+          {
+            "hue": 190,
+            "value": 100
+          },
+          {
+            "hue": 190,
+            "value": 80
+          }
+        ]
+      },
+      "factory": true
+    },
+    {
+      "id": "the-martian",
+      "name": "The Martian",
+      "mood": {
+        "mode": 11,
+        "speed": 5,
+        "brightness": 50,
+        "segmented": false,
+        "topDown": false,
+        "colors": [
+          {
+            "hue": 25,
+            "value": 100
+          },
+          {
+            "hue": 30,
+            "value": 80
+          },
+          {
+            "hue": 5,
+            "value": 100
+          }
+        ]
+      },
+      "factory": true
+    }
+  ]
+}
