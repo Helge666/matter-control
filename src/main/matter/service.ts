@@ -14,6 +14,7 @@ import { join } from "node:path";
 import { asTlvOctetString, asTlvUnsignedInt, bytesOf, vendorNumberOf } from "./vendor-values";
 import { t } from "../i18n";
 import { installCryptoCompat } from "./crypto-compat";
+import { resolveNetworkInterface } from "./network";
 import {
     type LampMode,
     MIC_ARMED_BYTE,
@@ -134,7 +135,10 @@ export class MatterService extends EventEmitter {
 
     // ---------------------------------------------------------------- lifecycle
 
-    async start(): Promise<void> {
+    /**
+     * @param networkInterface which adapter mDNS should use; see {@link AppSettings.networkInterface}.
+     */
+    async start(networkInterface?: string): Promise<void> {
         this.#installLogCapture();
         this.#loadLabels();
 
@@ -149,6 +153,19 @@ export class MatterService extends EventEmitter {
         }, 15_000);
 
         try {
+            // Pin the adapter mDNS runs on, before anything touches Environment.default.
+            //
+            // Two things make this awkward. Without a choice, matter.js never calls
+            // setMulticastInterface, so Windows sends discovery out of whichever adapter has the
+            // lowest metric — a VPN or tunnel adapter, typically, where no device will ever
+            // answer. And the environment builds its services on first access, each reading its
+            // configuration once, so `env.vars.set("mdns.networkInterface", …)` further down is
+            // accepted and then silently ignored. The process environment is read while those
+            // services are built, which is early enough. See AppSettings.networkInterface.
+            const netInterface = await resolveNetworkInterface(networkInterface);
+            if (netInterface) process.env.MATTER_MDNS_NETWORKINTERFACE = netInterface;
+            else delete process.env.MATTER_MDNS_NETWORKINTERFACE;
+
             // Must happen before the first node is built: the certificate authority is created
             // during controller initialization.
             const cryptoNote = installCryptoCompat();
@@ -156,6 +173,15 @@ export class MatterService extends EventEmitter {
 
             const env = Environment.default;
             env.vars.set("storage.path", this.dataDir);
+
+            this.#log(
+                "info",
+                "Network",
+                netInterface
+                    ? `Discovery limited to interface "${netInterface}"`
+                    : "Discovery left unrestricted across all interfaces",
+            );
+            this.#setStatus({ networkInterface: netInterface });
 
             const node = await ServerNode.create(ServerNode.RootEndpoint.with(ControllerBehavior), {
                 id: "controller",

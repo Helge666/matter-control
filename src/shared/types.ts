@@ -15,7 +15,21 @@ export interface ControllerStatus {
     dataDir: string;
     /** Shown in the title bar so the running build is always visible. */
     version: string;
+    /**
+     * The adapter mDNS is actually bound to, once resolved, or undefined when matter.js was left
+     * unrestricted. Worth surfacing: picking the wrong one is invisible otherwise, because
+     * discovery then fails silently rather than reporting an error.
+     */
+    networkInterface?: string;
     error?: string;
+}
+
+/** An adapter offered in the network settings. */
+export interface NetworkInterfaceInfo {
+    name: string;
+    addresses: string[];
+    /** Has an address beyond link-local, so there is a router behind it. */
+    routable: boolean;
 }
 
 /** What an endpoint can actually be driven with. */
@@ -85,6 +99,16 @@ export interface AppSettings {
     startHidden: boolean;
     schedule: Schedule;
     language: LanguagePreference;
+    /**
+     * Which adapter mDNS runs on: an interface name, `"auto"` to follow the machine's default
+     * route, or `"all"` to leave the choice to matter.js.
+     *
+     * Needed because Windows sends multicast out whichever adapter has the lowest metric, which a
+     * VPN or tunnel adapter usually wins. Discovery then finds nothing at all, and the controller
+     * falls back to the last known address of each device — so it keeps working until one of those
+     * addresses goes stale, and then that device is unreachable for good.
+     */
+    networkInterface: string;
 }
 
 export type LogLevel = "debug" | "info" | "warn" | "error";
@@ -129,6 +153,7 @@ export interface MatterApi {
     openDataDir(): Promise<void>;
     getSettings(): Promise<AppSettings>;
     updateSettings(patch: Partial<AppSettings>): Promise<AppSettings>;
+    listNetworkInterfaces(): Promise<NetworkInterfaceInfo[]>;
     listPresets(): Promise<MoodPreset[]>;
     savePreset(name: string, mood: Mood, description?: string): Promise<MoodPreset[]>;
     deletePreset(id: string): Promise<MoodPreset[]>;

@@ -172,6 +172,14 @@ export const de: Record<MessageKey, string> = {
     "settings.network.title": "Netzwerk",
     "settings.network.body":
         "Matter setzt auf mDNS und IPv6. Wenn Geräte nicht gefunden werden, liegt das auf Windows meist an einem virtuellen Netzwerkadapter (VPN, Tailscale, Hyper-V), der den Multicast-Pfad übernimmt, oder an einer Firewall-Regel, die UDP 5353 und 5540 blockiert.",
+    "settings.network.adapter": "Netzwerkadapter",
+    "settings.network.adapterHint":
+        "Auf welchem Adapter die Gerätesuche läuft. „Automatisch“ folgt der Standardroute dieses PCs und trifft es fast immer. Leg einen fest, wenn ein VPN- oder Tunnel-Adapter den Multicast-Pfad übernimmt — die Suche findet dann nichts mehr, und Geräte funktionieren nur so lange, wie ihre zuletzt bekannte Adresse gültig bleibt. Ein Wechsel startet die App neu.",
+    "settings.network.auto": "Automatisch",
+    "settings.network.all": "Alle Adapter",
+    "settings.network.active": "Die Gerätesuche läuft auf {name}.",
+    "settings.network.unrestricted": "Die Gerätesuche ist auf keinen Adapter festgelegt.",
+    "settings.network.linkLocalOnly": "nur Link-Local",
 
     // --- Commissioning --------------------------------------------------
     "commission.title": "Gerät hinzufügen",

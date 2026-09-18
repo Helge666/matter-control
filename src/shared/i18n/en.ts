@@ -175,6 +175,14 @@ export const en = {
     "settings.network.title": "Network",
     "settings.network.body":
         "Matter relies on mDNS and IPv6. When devices are not found on Windows, the cause is usually a virtual network adapter (VPN, Tailscale, Hyper-V) taking over the multicast path, or a firewall rule blocking UDP 5353 and 5540.",
+    "settings.network.adapter": "Network adapter",
+    "settings.network.adapterHint":
+        "Which adapter device discovery runs on. \"Automatic\" follows this PC's default route, which is right in nearly every case. Pin one when a VPN or tunnel adapter takes over the multicast path — discovery then finds nothing, and devices keep working only until their last known address goes stale. Changing this restarts the app.",
+    "settings.network.auto": "Automatic",
+    "settings.network.all": "All adapters",
+    "settings.network.active": "Discovery is running on {name}.",
+    "settings.network.unrestricted": "Discovery is not limited to any adapter.",
+    "settings.network.linkLocalOnly": "link-local only",
 
     // --- Commissioning --------------------------------------------------
     "commission.title": "Add device",

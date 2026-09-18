@@ -11,6 +11,7 @@ const DEFAULTS: AppSettings = {
     startHidden: true,
     schedule: DEFAULT_SCHEDULE,
     language: "system",
+    networkInterface: "auto",
 };
 
 /**

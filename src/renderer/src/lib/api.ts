@@ -62,6 +62,7 @@ function createDemoApi(): MatterApi {
         startHidden: true,
         schedule: { ...DEFAULT_SCHEDULE, enabled: true },
         language: "system",
+        networkInterface: "auto",
     };
 
     let demoMood: Mood = {
@@ -249,6 +250,10 @@ function createDemoApi(): MatterApi {
             demoSettings = { ...demoSettings, ...patch, schedule: { ...demoSettings.schedule, ...(patch.schedule ?? {}) } };
             return demoSettings;
         },
+        listNetworkInterfaces: async () => [
+            { name: "Ethernet", addresses: ["fd00:b703:89f2:0:b8cb:aa7c:ab32:c700"], routable: true },
+            { name: "Tailscale", addresses: ["fd7a:115c:a1e0::9901:377"], routable: true },
+        ],
         onEvent: handler => {
             listeners.add(handler);
             return () => listeners.delete(handler);

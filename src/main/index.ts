@@ -5,6 +5,7 @@ import { type MoodPreset, presetId, toPresetMood } from "../shared/presets";
 import type { CommissionRequest } from "../shared/types";
 import { setLanguage, t } from "./i18n";
 import { MatterService } from "./matter/service";
+import { listNetworkInterfaces } from "./matter/network";
 import { PresetStore } from "./presets";
 import { Scheduler } from "./scheduler";
 import { type AppSettings, SettingsStore } from "./settings";
@@ -86,6 +87,20 @@ function pushStateToRenderer() {
     mainWindow.webContents.send("matter:event", { type: "devices", devices: matter.listDevices() });
 }
 
+/**
+ * Restart the app so a new adapter choice takes effect.
+ *
+ * matter.js reads it while building its services, once per process, so stopping and starting the
+ * controller in place would keep the old adapter and look like the setting did nothing. The
+ * window comes back visible even when this run started in the tray: someone who just changed a
+ * setting is watching, and a silent disappearance would read as a crash.
+ */
+function relaunchForNetworkChange() {
+    app.relaunch({ args: process.argv.slice(1).filter(arg => arg !== "--hidden") });
+    quitting = true;
+    app.quit();
+}
+
 function showWindow() {
     if (!mainWindow || mainWindow.isDestroyed()) mainWindow = createWindow(true);
     mainWindow.show();
@@ -124,11 +139,17 @@ function registerIpc(service: MatterService, settings: SettingsStore, presets: P
     handle("matter:openDataDir", () => shell.openPath(DATA_DIR));
 
     handle("app:getSettings", () => settings.value);
+    handle("app:listNetworkInterfaces", () => listNetworkInterfaces());
     handle("app:updateSettings", (patch: Partial<AppSettings>) => {
+        const before = settings.value.networkInterface;
         const next = settings.update(patch);
         if (patch.schedule) scheduler?.update(next.schedule);
         if (patch.language) setLanguage(next.language);
         (tray as { rebuild?: () => void } | undefined)?.rebuild?.();
+        // Last, and after the reply is prepared: this ends the process.
+        if (patch.networkInterface !== undefined && patch.networkInterface !== before) {
+            setTimeout(relaunchForNetworkChange, 250);
+        }
         return next;
     });
 
@@ -174,7 +195,7 @@ if (!app.requestSingleInstanceLock()) {
         tray = createTray(matter, settings, showWindow, () => mainWindow);
 
         try {
-            await matter.start();
+            await matter.start(settings.value.networkInterface);
         } catch (e) {
             // The window still opens: the renderer shows the error from the status channel.
             console.error("Matter controller failed to start:", e);

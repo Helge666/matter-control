@@ -2,8 +2,9 @@
 import { FolderOpen } from "lucide-vue-next";
 import SchedulePanel from "../components/SchedulePanel.vue";
 import Toggle from "../components/Toggle.vue";
-import { computed } from "vue";
-import { isElectron } from "../lib/api";
+import { computed, onMounted, ref } from "vue";
+import { api, isElectron } from "../lib/api";
+import type { NetworkInterfaceInfo } from "@shared/types";
 import { LOCALES, type LanguagePreference } from "@shared/i18n";
 import { t } from "../i18n";
 import { controller } from "../stores/controller";
@@ -16,6 +17,19 @@ const rows = computed(() => [
     { label: t("settings.controllerStatus"), value: status.value.phase, hint: status.value.error ?? "" },
     { label: t("settings.devicesInFabric"), value: String(controller.state.devices.length), hint: "" },
 ]);
+
+/**
+ * Read once when the view opens: adapters come and go, but not while someone is looking at a
+ * settings page, and re-reading on every render would poll the OS for nothing.
+ */
+const interfaces = ref<NetworkInterfaceInfo[]>([]);
+onMounted(async () => {
+    try {
+        interfaces.value = await api.listNetworkInterfaces();
+    } catch {
+        // Leaves only "automatic" and "all" in the list, which are still the useful defaults.
+    }
+});
 
 /** Language names stay in their own language, so the right one can be found whatever is shown. */
 const languages = computed((): { id: LanguagePreference; name: string }[] => [
@@ -125,6 +139,38 @@ const languages = computed((): { id: LanguagePreference; name: string }[] => [
                     <p class="mt-1.5 text-[12px] leading-relaxed text-ink-400">
                         {{ t("settings.network.body") }}
                     </p>
+
+                    <div v-if="settings" class="mt-4 border-t border-[var(--hairline)] pt-4">
+                        <label for="net-adapter" class="text-[12.5px] text-ink-200">
+                            {{ t("settings.network.adapter") }}
+                        </label>
+                        <p class="mt-1.5 text-[12px] leading-relaxed text-ink-400">
+                            {{ t("settings.network.adapterHint") }}
+                        </p>
+                        <select
+                            id="net-adapter"
+                            class="mt-3 w-full rounded-lg border border-[var(--hairline-strong)] bg-[var(--surface-2)] px-3 py-2 text-[12.5px] text-ink-100 transition-colors hover:bg-[var(--surface-3)]"
+                            :value="settings.networkInterface"
+                            @change="
+                                controller.updateSettings({
+                                    networkInterface: ($event.target as HTMLSelectElement).value,
+                                })
+                            "
+                        >
+                            <option value="auto">{{ t("settings.network.auto") }}</option>
+                            <option value="all">{{ t("settings.network.all") }}</option>
+                            <option v-for="item in interfaces" :key="item.name" :value="item.name">
+                                {{ item.name }}{{ item.routable ? "" : ` — ${t("settings.network.linkLocalOnly")}` }}
+                            </option>
+                        </select>
+                        <p class="mt-2.5 text-[11.5px] text-ink-500">
+                            {{
+                                status.networkInterface
+                                    ? t("settings.network.active", { name: status.networkInterface })
+                                    : t("settings.network.unrestricted")
+                            }}
+                        </p>
+                    </div>
                 </section>
             </div>
         </div>

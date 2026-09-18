@@ -1,6 +1,6 @@
 {
   "name": "matter-control",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "private": true,
   "description": "Matter controller for Windows",
   "author": "Helge Thorsten Kautz",

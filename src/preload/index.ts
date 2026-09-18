@@ -25,6 +25,7 @@ const api: MatterApi = {
     openDataDir: () => ipcRenderer.invoke("matter:openDataDir"),
     getSettings: () => ipcRenderer.invoke("app:getSettings"),
     updateSettings: patch => ipcRenderer.invoke("app:updateSettings", patch),
+    listNetworkInterfaces: () => ipcRenderer.invoke("app:listNetworkInterfaces"),
     listPresets: () => ipcRenderer.invoke("app:listPresets"),
     savePreset: (name, mood, description) => ipcRenderer.invoke("app:savePreset", name, mood, description),
     deletePreset: id => ipcRenderer.invoke("app:deletePreset", id),
