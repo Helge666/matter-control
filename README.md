@@ -4,6 +4,7 @@ A Matter controller for Windows. It pairs Matter devices into a fabric of its ow
 from the PC — no manufacturer cloud, no hub.
 
 **[Download the installer](https://github.com/Helge666/matter-control/releases/latest)** for Windows 10 and 11.
+Linux and macOS are on the [roadmap](#roadmap).
 
 <p align="center">
   <img src="docs/screenshot.png" alt="Matter Control with two lamps, one of them showing the mood editor" width="520">
@@ -168,6 +169,24 @@ stumbling blocks on Windows:
 - **Virtual adapters** (VPN, Tailscale, Hyper-V) can take over the multicast path, so that discovery
   requests leave through the wrong interface.
 - **Firewall rules** that block incoming UDP 5353/5540 for Node or the app.
+
+## Roadmap
+
+No dates — the app does what it was built for and is in daily use. This is the order things would be
+picked up in.
+
+- **Linux and macOS builds.** Electron, matter.js, Vue and the mood codec are platform-neutral, and
+  nothing under `src/` branches on the operating system. What needs sorting out: the window uses
+  Windows 11's Mica material with a hidden title bar; autostart goes through Electron's login-item
+  API, which behaves differently on macOS and not at all on most Linux desktops; and
+  `electron-builder.yml` only carries a `win` target, so `deb`/`AppImage` and `dmg` still have to be
+  added and actually tested. mDNS deserves a second look there as well — picking the right network
+  adapter is the part that differs on every system. Testers on either platform are welcome.
+- **Remaining protocol gaps** in the manufacturer cluster: microphone sensitivity, the unknown
+  header byte, vendor command 8. Collected in [docs/findings.md](docs/findings.md).
+- **Diagnostics** — an attribute browser, a raw command sender and an ACL editor, as the Rust
+  predecessor had.
+- **English output for the command-line tools**, which still print German.
 
 ## License
 
