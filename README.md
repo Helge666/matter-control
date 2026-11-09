@@ -170,6 +170,10 @@ stumbling blocks on Windows:
   requests leave through the wrong interface.
 - **Firewall rules** that block incoming UDP 5353/5540 for Node or the app.
 
+While a paired device has no connection, the app asks the network for it every 30 seconds with a
+query that requests a direct answer. LEDVANCE lamps did not get their multicast answers through to
+the PC, so without this a lamp whose stored address has gone stale would stay offline for good.
+
 ## Roadmap
 
 No dates — the app does what it was built for and is in daily use. This is the order things would be

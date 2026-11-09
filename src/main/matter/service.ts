@@ -8,6 +8,7 @@ import {
     Seconds,
     ServerNode,
 } from "@matter/main";
+import { MdnsService } from "@matter/protocol";
 import { EventEmitter } from "node:events";
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
@@ -15,6 +16,7 @@ import { asTlvOctetString, asTlvUnsignedInt, bytesOf, vendorNumberOf } from "./v
 import { t } from "../i18n";
 import { installCryptoCompat } from "./crypto-compat";
 import { resolveNetworkInterface } from "./network";
+import { rediscover } from "./rediscovery";
 import {
     type LampMode,
     MIC_ARMED_BYTE,
@@ -44,6 +46,9 @@ import type {
 
 const FABRIC_LABEL = "matter-control (PC)";
 const MAX_LOG_ENTRIES = 2000;
+
+/** How often to look for devices without a connection. Costs nothing while all are connected. */
+const REDISCOVERY_INTERVAL_MS = 30_000;
 
 /**
  * Apply changes immediately rather than asking the device to fade.
@@ -96,6 +101,7 @@ export class MatterService extends EventEmitter {
     /** User-assigned labels, keyed by local node id. Persisted to {@link #labelsFile}. */
     #labels = new Map<string, string>();
     #labelsFile: string;
+    #rediscoveryTimer?: NodeJS.Timeout;
 
     constructor(
         private readonly dataDir: string,
@@ -206,6 +212,7 @@ export class MatterService extends EventEmitter {
             });
             node.peers.deleted.on(() => this.#pushDevices());
             for (const peer of node.peers) this.#watchPeer(peer);
+            void this.#rediscoverOffline(node);
 
             this.#setStatus({ phase: "online", error: undefined });
             this.#pushDevices();
@@ -220,8 +227,34 @@ export class MatterService extends EventEmitter {
     async stop(): Promise<void> {
         const node = this.#node;
         this.#node = undefined;
+        clearTimeout(this.#rediscoveryTimer);
         if (node) await node.close().catch(() => {});
         this.#setStatus({ phase: "offline" });
+    }
+
+    /**
+     * Keep looking for every paired device that has no connection, for as long as the app runs.
+     *
+     * matter.js keeps retrying on its own, but only at addresses it knows; see {@link rediscover}
+     * for why it may not learn a new one by itself.
+     */
+    async #rediscoverOffline(node: ServerNode) {
+        const offline = [...node.peers].filter(p => p.state.commissioning?.peerAddress && !p.lifecycle.isOnline);
+        if (offline.length) {
+            try {
+                const { replies, installed } = await rediscover(node.env.get(MdnsService).names);
+                this.#log(
+                    "info",
+                    "Rediscovery",
+                    `${offline.length} device(s) offline; ${replies} answered on the network, ${installed} records updated`,
+                );
+            } catch (e) {
+                this.#log("warn", "Rediscovery", errorMessage(e));
+            }
+        }
+        if (this.#node === node) {
+            this.#rediscoveryTimer = setTimeout(() => void this.#rediscoverOffline(node), REDISCOVERY_INTERVAL_MS);
+        }
     }
 
     #node_(): ServerNode {

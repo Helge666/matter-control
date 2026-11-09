@@ -1,6 +1,6 @@
 {
   "name": "matter-control",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "private": true,
   "description": "Matter controller for Windows",
   "author": "Helge Thorsten Kautz",
@@ -21,6 +21,7 @@
   "dependencies": {
     "@matter/main": "^0.17.9",
     "@matter/nodejs": "^0.17.9",
+    "@matter/protocol": "^0.17.9",
     "@matter/types": "^0.17.9"
   },
   "devDependencies": {
